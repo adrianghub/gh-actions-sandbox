@@ -1,7 +1,11 @@
 name: Build and Deploy to Netlify
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy-netlify:
+        type: boolean
+        description: Enable Netlify deployment
+        default: true
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -23,6 +27,7 @@ jobs:
       # ( Build to ./dist or other directory... )
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
+        if: ${{ inputs.deploy-netlify }}
         with:
           publish-dir: './dist'
           production-branch: master
