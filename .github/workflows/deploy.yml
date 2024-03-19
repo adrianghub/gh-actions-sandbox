@@ -1,10 +1,14 @@
-name: Build and Deploy to Netlify
+name: Build and Deploy to Netlify and Vercel
 on:
   workflow_dispatch:
     inputs:
       deploy-netlify:
         type: boolean
         description: Enable Netlify deployment
+        default: true
+      deploy-vercel:
+        type: boolean
+        description: Enable Vercel deployment
         default: true
 jobs:
   deploy:
@@ -24,7 +28,17 @@ jobs:
       - name: Build app
         run: npm run build
 
-      # ( Build to ./dist or other directory... )
+      - name: Install Vercel CLI and Deploy to Vercel (Production)
+        if: ${{ inputs.deploy-vercel }}
+        run: |
+          npm install --global vercel@canary
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         if: ${{ inputs.deploy-netlify }}
@@ -37,3 +51,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 1
+
+      - name: Cleanup
+        run: rm -rf .vercel
