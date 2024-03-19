@@ -23,3 +23,22 @@ nvm use
 npm install
 npm run dev
 ```
+
+
+### Font edytora - Monaspace
+
+https://monaspace.githubnext.com
+
+### Font terminala - Fira Code
+
+```bash
+brew tap homebrew/cask-fonts
+brew cask install font-fira-code-nerd-font
+
+https://starship.rs
+
+Dodaj do _dotfile_ twojego terminala, np. `~/.zshrc`
+
+```bash
+eval "$(starship init zsh)"
+```
