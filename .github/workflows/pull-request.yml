@@ -1,6 +1,6 @@
-name: Build and Deploy to Netlify and Vercel
+name: Build and Deploy to Vercel Preview
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -8,8 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
@@ -24,27 +22,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run linter
+        run: npm run lint
+
       - name: Run unit tests
         run: npm run test
 
       - name: Build
         run: npm run build
 
-      - name: Install Vercel CLI and Deploy to Vercel (Production)
+      - name: Install Vercel CLI and Deploy to Vercel (Preview)
         run: |
           npm install --global vercel@canary
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: './dist'
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from GitHub Actions'
-        timeout-minutes: 1
+          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Cleanup
         run: rm -rf .vercel
