@@ -40,9 +40,9 @@ jobs:
           DEPLOY_URL="$(echo "$DEPLOY_OUTPUT" | grep http | tail -n 1)"
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
 
-          - name: Create a comment on the PR
-          - uses: actions/github-script@v7
-          with:
+      - name: Create a comment on the PR
+        uses: actions/github-script@v7
+        with:
           script: |
             const { DEPLOY_URL } = process.env;
             github.rest.issues.createComment({
