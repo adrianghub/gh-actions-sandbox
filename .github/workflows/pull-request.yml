@@ -1,4 +1,4 @@
-name: Build and Deploy to Netlify and Vercel
+name: Build and Deploy to Vercel Preview
 on:
   pull_request:
     branches:
@@ -31,7 +31,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install Vercel CLI and Deploy to Vercel (Production)
+      - name: Install Vercel CLI and Deploy to Vercel (Preview)
         run: |
           npm install --global vercel@canary
           vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
