@@ -8,13 +8,12 @@ inputs:
   mode:
     description: 'Deploy mode'
     required: false
-    default:
-      'production'
+    default: 'production'
 
 runs:
   using: 'composite'
   steps:
-    - name: Install Vercel CLI:
+    - name: Install Vercel CLI
       run: npm install --global vercel@canary
       shell: bash
 
