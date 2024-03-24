@@ -33,7 +33,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:

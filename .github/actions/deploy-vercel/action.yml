@@ -18,25 +18,25 @@ runs:
       shell: bash
 
     - name: Vercel Deployment (Production)
-      if: ${{ inputs.mode == "production" }}
+      if: ${{ inputs.mode == 'production' }}
       run: |
-        vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        vercel build --token=${{ secrets.VERCEL_TOKEN }}
-        vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}"
+        vercel pull --yes --environment=production --token=${{ inputs.VERCEL_TOKEN }}
+        vercel build --token=${{ inputs.VERCEL_TOKEN }}
+        vercel deploy --prod --token=${{ inputs.VERCEL_TOKEN }}"
       shell: bash
 
     - name: Vercel Deployment (Preview)
-      if: ${{ inputs.mode == "preview" }}
+      if: ${{ inputs.mode == 'preview' }}
       run: |
-        vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-        vercel build --token=${{ secrets.VERCEL_TOKEN }}
-        DEPLOY_OUTPUT="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+        vercel pull --yes --environment=preview --token=${{ inputs.VERCEL_TOKEN }}
+        vercel build --token=${{ inputs.VERCEL_TOKEN }}
+        DEPLOY_OUTPUT="$(vercel deploy --prebuilt --token=${{ inputs.VERCEL_TOKEN }})"
         DEPLOY_URL="$(echo "$DEPLOY_OUTPUT" | grep http | tail -n 1)"
         echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
       shell: bash
 
       - name: Create a comment on the PR
-        if: ${{ inputs.mode == "preview" }}
+        if: ${{ inputs.mode == 'preview' }}
         uses: actions/github-script@v7.0.1
         with:
           script: |
