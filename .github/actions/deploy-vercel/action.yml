@@ -1,0 +1,53 @@
+name: Deploy to Vercel
+description: Deploy to Vercel
+
+inputs:
+  vercel-token:
+    description: 'Vercel token'
+    required: true
+  mode:
+    description: 'Deploy mode'
+    required: false
+    default:
+      'production'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Vercel CLI:
+      run: npm install --global vercel@canary
+      shell: bash
+
+    - name: Vercel Deployment (Production)
+      if: ${{ inputs.mode == "production" }}
+      run: |
+        vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}"
+      shell: bash
+
+    - name: Vercel Deployment (Preview)
+      if: ${{ inputs.mode == "preview" }}
+      run: |
+        vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        DEPLOY_OUTPUT="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+        DEPLOY_URL="$(echo "$DEPLOY_OUTPUT" | grep http | tail -n 1)"
+        echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+      shell: bash
+
+      - name: Create a comment on the PR
+        if: ${{ inputs.mode == "preview" }}
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const { DEPLOY_URL } = process.env;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `👋 Thanks from reporting! Preview URL: ${DEPLOY_URL}`
+            })
+
+      - name: Cleanup
+        run: rm -rf .vercel
