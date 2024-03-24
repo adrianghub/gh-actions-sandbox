@@ -47,7 +47,3 @@ runs:
             repo: context.repo.repo,
             body: `👋 Thanks from reporting! Preview URL: ${DEPLOY_URL}`
           })
-
-    - name: Cleanup
-      run: rm -rf .vercel
-      shell: bash
