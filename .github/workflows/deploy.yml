@@ -5,40 +5,13 @@ on:
       - master
 
 jobs:
-  deploy:
-    runs-on: ubuntu-22.04
-    env:
+  deploy-netlify:
+    uses: ./.github/workflows/deploy-netlify.yml
+    secrets:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Setup node and install dependencies
-        uses: ./.github/actions/setup-node
-
-      - name: Run unit tests
-        run: npm run test
-
-      - name: Build
-        run: npm run build
-
-      - name: Install Vercel CLI and Deploy to Vercel (Production)
-        if: ${{ inputs.deploy-vercel }}
-        uses: ./.github/actions/deploy-vercel
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: './dist'
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from GitHub Actions'
-        timeout-minutes: 1
+  deploy-vercel:
+    needs: deploy-netlify
+    uses: ./.github/workflows/deploy-vercel.yml
+    secrets: inherit
