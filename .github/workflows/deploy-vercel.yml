@@ -2,13 +2,6 @@ name: Deploy - Vercel
 
 on:
   workflow_call:
-    secrets:
-      VERCEL_ORG_ID:
-        required: true
-      VERCEL_PROJECT_ID:
-        required: true
-      VERCEL_TOKEN:
-        required: true
 
 jobs:
   deploy:
