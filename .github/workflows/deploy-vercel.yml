@@ -4,11 +4,14 @@ on:
   workflow_call:
 
 jobs:
-  deploy:
+  deploy-vercel:
     runs-on: ubuntu-latest
+    environment:
+      name: 'Staging'
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VITE_ENVIRONMENT: 'staging'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
