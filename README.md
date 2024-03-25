@@ -1,9 +1,3 @@
-# Opanuj Frontend: AI Edition - Frontend Bootstrap
-
-![](./_resources/img/header.png)
-
-## Co w środku?
-
 Bootstrap projektu opartego o następujące narzędzia:
 
 - [editorconfig](https://editorconfig.org/)
@@ -34,8 +28,9 @@ https://monaspace.githubnext.com
 ```bash
 brew tap homebrew/cask-fonts
 brew cask install font-fira-code-nerd-font
+```
 
-https://starship.rs
+`https://starship.rs`
 
 Dodaj do _dotfile_ twojego terminala, np. `~/.zshrc`
 
