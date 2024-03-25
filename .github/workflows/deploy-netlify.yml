@@ -9,8 +9,10 @@ on:
         required: true
 
 jobs:
-  deploy:
+  deploy-netlify:
     runs-on: ubuntu-latest
+    environment:
+      name: 'Development'
     env:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

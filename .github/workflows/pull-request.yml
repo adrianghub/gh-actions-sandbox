@@ -5,8 +5,10 @@ on:
       - master
 
 jobs:
-  deploy:
+  pr-check:
     runs-on: ubuntu-22.04
+    environment:
+      name: 'Preview'
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
