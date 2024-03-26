@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: 'Production'
+    env:
+      VITE_ENVIRONMENT: 'production'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
