@@ -1,7 +1,9 @@
 name: Deploy - AWS
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   deploy-aws:
