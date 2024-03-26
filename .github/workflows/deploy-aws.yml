@@ -1,0 +1,28 @@
+name: Deploy - AWS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-aws:
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure Node
+        uses: ./.github/actions/setup-node
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Build app
+        run: npm run build
+
+      - name: Deploy to AWS
+        run: aws s3 sync dist/ s3://zinko-ofed
