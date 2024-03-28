@@ -10,6 +10,7 @@ jobs:
       name: 'Production'
     env:
       VITE_ENVIRONMENT: 'production'
+      VITE_AWS_MONITORING_API: ${{ secrets.VITE_AWS_MONITORING_API }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
