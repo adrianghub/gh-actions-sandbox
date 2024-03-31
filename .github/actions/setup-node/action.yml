@@ -10,6 +10,7 @@ runs:
 
     - name: Install pnpm
       run: npm install -g pnpm
+      shell: bash
 
     - name: Install dependencies
       run: pnpm ci
