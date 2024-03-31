@@ -32,7 +32,7 @@ export const handler: Handler<EventInput, LambdaResponse> = async (event) => {
         Value: loadTimeMs,
       },
     ],
-    Namespace: 'RMCatalogMetrics',
+    Namespace: 'OFEDMetics',
   };
 
   const command = new PutMetricDataCommand(params);
