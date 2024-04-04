@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@featurevisor/react':
+    specifier: 1.11.1
+    version: 1.11.1
+  '@featurevisor/sdk':
+    specifier: 1.11.1
+    version: 1.11.1
   axios:
     specifier: 1.6.8
     version: 1.6.8
@@ -554,6 +560,25 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@featurevisor/react@1.11.1:
+    resolution: {integrity: sha512-8+zyAVz8Wptysfo3ydixkB9Mb8UMwhDqmG6pNE6h+s6U/VJEZTgcdQ4+Y1vXgLP3pDxptz1xP4rE+25SM5ZcuQ==}
+    dependencies:
+      '@featurevisor/sdk': 1.11.1
+      '@featurevisor/types': 1.3.0
+    dev: false
+
+  /@featurevisor/sdk@1.11.1:
+    resolution: {integrity: sha512-KSwYImeXTkgwBLm5R1k/izwcEfqOSktpGIKXCfPU+Pu5Dl7BkE8eyIqiJDMZ88aV20Z0cieD8c9UV5WJOQZ1Wg==}
+    dependencies:
+      '@featurevisor/types': 1.3.0
+      compare-versions: 6.1.0
+      murmurhash: 2.0.1
+    dev: false
+
+  /@featurevisor/types@1.3.0:
+    resolution: {integrity: sha512-DGAd6kHqSopdaXb29nO81C/CiuTwBCtgjHx5P13m4u+A8pZd/Bc1RY3A3Nwsv2dLOX+VvBYbmb2+gdxOEnpxSw==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -1420,6 +1445,10 @@ packages:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
     dev: true
+
+  /compare-versions@6.1.0:
+    resolution: {integrity: sha512-LNZQXhqUvqUTotpZ00qLSaify3b4VFD588aRr8MKFw4CMUr98ytzCW5wDH5qx/DEY5kCDXcbcRuCqL0szEf2tg==}
+    dev: false
 
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -2676,6 +2705,10 @@ packages:
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
+
+  /murmurhash@2.0.1:
+    resolution: {integrity: sha512-5vQEh3y+DG/lMPM0mCGPDnyV8chYg/g7rl6v3Gd8WMF9S429ox3Xk8qrk174kWhG767KQMqqxLD1WnGd77hiew==}
+    dev: false
 
   /mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
